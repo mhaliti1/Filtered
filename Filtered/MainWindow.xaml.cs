@@ -20,13 +20,15 @@ namespace Filtered
     /// </summary>
     public partial class MainWindow : Window
     {
-        private static ViewModel vm;
+        public static ViewModel vm;
         public MainWindow()
         {
             InitializeComponent();
             StateChanged += MainWindowStateChangeRaised;
             vm = new ViewModel();
             this.DataContext = vm;
+
+            Switcher.Switch(new Views.Home());
         }
 
 
@@ -100,14 +102,27 @@ namespace Filtered
             }
         }
 
-        private void OpenFilter(object sender, RoutedEventArgs e)
+       
+
+        private void Projects(object sender, RoutedEventArgs e)
         {
-            Filter _Filter = new Filter();
-            _Filter.DataContext = vm;
-            _Filter.ShowDialog();
+            Switcher.Switch(new Views.Home());
         }
 
-         
+        private void Tasks(object sender, RoutedEventArgs e)
+        {
+            Switcher.Switch(new Views.TasksView());
+        }
+
+        private void Users(object sender, RoutedEventArgs e)
+        {
+            Switcher.Switch(new Views.UserView());
+        }
+
+        private void Settings(object sender, RoutedEventArgs e)
+        {
+            Switcher.Switch(new Views.SettingsView());
+        }
     }
 
 

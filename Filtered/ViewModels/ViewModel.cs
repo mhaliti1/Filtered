@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Filtered.Models;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -105,6 +106,38 @@ namespace Filtered
                 this.searchCommand = value;
             }
         }
+
+        private DelegateCommand saveproject;
+        public DelegateCommand SaveProject
+        {
+            get
+            {
+                return this.saveproject;
+            }
+            set
+            {
+                this.saveproject = value;
+            }
+        }
+
+
+        private async void ExecuteSaveProjectCommand(object parameter)
+        {
+            IsBusy = true;
+
+            await Task.Run(() =>
+            {
+                //Run your update to databse 
+                Thread.Sleep(3000);
+                
+                OnPropertyChanged("SelectedProject");
+
+            });
+
+            IsBusy = false;
+        }
+
+
 
         private DelegateCommand command;
         public DelegateCommand Command
@@ -509,7 +542,9 @@ namespace Filtered
             this.FilterCommand = new DelegateCommand(this.ExecuteFilterCommand, this.CanExecuteFilter);
 
             this.SearchCommand = new DelegateCommand(this.ExecuteSearchCommand, this.CanExecuteSearch);
-             
+
+            this.SaveProject = new DelegateCommand(this.ExecuteSaveProjectCommand, this.CanRunSaveProjectCommand);
+            
 
             DeveloperList = new List<string>();
             StatusList = new List<string>();
@@ -551,7 +586,7 @@ namespace Filtered
 
                
                 _ProjectQuery = (from item in _projects
-                .Where(pr => pr.Developer.Equals(SearchText) || pr.Status.Equals(SearchText) || pr.Name.Equals(SearchText))
+                .Where(pr => pr.Developer.Contains(SearchText) || pr.Status.Contains(SearchText) || pr.Description.Contains(SearchText))
                  
 
 
@@ -931,6 +966,18 @@ namespace Filtered
 
         }
 
+
+        private Project _selectedProject;
+        public Project SelectedProject
+        {
+            get { return _selectedProject; }
+            set
+            {
+                SetProperty(ref _selectedProject, value);
+
+            }
+
+        }
         private List<Project> _filtered;
         public List<Project> Filtered
         {
@@ -958,8 +1005,11 @@ namespace Filtered
 
 
 
-      
 
+        public bool CanRunSaveProjectCommand(object parameter)
+        {
+            return SelectedProject !=null;
+        }
 
 
 
@@ -973,46 +1023,9 @@ namespace Filtered
     }
 
 
-    public class User: ViewModelBase
-    {
-        public string Name { get; set; }
- 
-        public bool IsChecked { get; set; }
-
-
-    }
     
 
-    public class Project
-    {
-        public int Row { get; set; }
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public string Developer { get; set; }
-        public string Status { get; set; }
-        public string Business { get; set; }
-        public DateTime Date { get; set; }
-
-        public string ShortName
-        {
-            get
-            {
-              
-                if (!string.IsNullOrEmpty(Name))
-                {
-                    Regex initials = new Regex(@"(\b[a-zA-Z])[a-zA-Z]* ?");
-                    string init = initials.Replace(Name, "$1");
-                    return init;
-                }
-                else
-                {
-                    return "";
-                }
-
-            }
-        }
-    }
+   
 
 
 

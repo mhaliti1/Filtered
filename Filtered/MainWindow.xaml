@@ -27,27 +27,7 @@
         <CommandBinding Command="{x:Static SystemCommands.RestoreWindowCommand}" CanExecute="CommandBinding_CanExecute" Executed="CommandBinding_Executed_Restore" />
     </Window.CommandBindings>
 
-    <Window.Resources>
-        <DataTemplate DataType="{x:Type local:Project}">
-
-            <Border BorderBrush="Black" BorderThickness="1" Width="200" Margin="5">
-                <StackPanel>
-                    <TextBlock Text="{Binding Name}" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-                    <TextBlock Text="{Binding Developer}" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-                    <TextBlock Text="{Binding Status}" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-                    <TextBlock Text="{Binding Business}" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-                </StackPanel>
-                
-            </Border>
-
-
-
-        </DataTemplate>
-
- 
-  
-
-    </Window.Resources>
+     
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
@@ -69,27 +49,16 @@
             </Grid.RowDefinitions>
 
             <materialDesign:Card Margin="3" Grid.RowSpan="2">
-                
+
+                <StackPanel Margin="10 50 10 0">
+                    <Button Content="Home" Foreground="White" Margin="8"  ></Button>
+                    <Button Content="Projects" Foreground="White" Margin="8" Click="Projects"></Button>
+                    <Button Content="Tasks" Foreground="White" Margin="8" Click="Tasks"></Button>
+                    <Button Content="Users" Foreground="White" Margin="8" Click="Users"></Button>
+                    <Button Content="Settings" Foreground="White" Margin="8" Click="Settings"></Button>
+                </StackPanel>
             
-                <Grid Grid.RowSpan="2">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="40"/>
-                     
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-
-
-                <Grid Grid.Row="1">
-                    
-                </Grid>
-
-                
-
-
-
-
-
-            </Grid>
+               
             </materialDesign:Card>
 
 
@@ -129,165 +98,28 @@
             <Grid Grid.Column="1" Grid.Row="1">
 
               
-                
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="45"/>
-                        <RowDefinition/>
-                        <RowDefinition Height="50"/>
-                    </Grid.RowDefinitions>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                        <Button Content="&#xE16E;" FontFamily="Segoe UI Symbol" Foreground="White" Width="50" Margin="10 0" Click="OpenFilter"></Button>
-                    </StackPanel>
-                     
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                       
-                        <TextBox Style="{StaticResource MyWaterMarkStyle}"    Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="200" Margin="8" Tag="Search Here..">
 
-                            <TextBox.InputBindings>
-                                <KeyBinding Key="Enter" Command="{Binding SearchCommand}"/>
-                                <KeyBinding Key="Return" Command="{Binding SearchCommand}"/>
-                            </TextBox.InputBindings>
-                        </TextBox>
-                        <Button Content="X" Foreground="White" Width="40" Margin="5" Command="{Binding Command}"></Button>
 
-                         
-
-                       
+                    <local:SwitchView></local:SwitchView>
 
 
 
 
-
-                    </StackPanel>
-                    <Grid Grid.Row="1">
-
-
-                      
-
-                        <ListView     ItemsSource="{Binding ViewList.View}"
-                                       IsSynchronizedWithCurrentItem="True"   
-                     HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  
-                                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                      >
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <materialDesign:Card Margin="3"> 
-                                    <materialDesign:Flipper  >
-                                        <materialDesign:Flipper.FrontContent>
-                                            <Grid Height="256" Width="200">
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition Height="160" />
-                                                    <RowDefinition Height="*" />
-                                                </Grid.RowDefinitions>
-                                                    <materialDesign:ColorZone Mode="PrimaryLight" VerticalAlignment="Stretch" 
-                                                                              CornerRadius="100" Width="100" Height="100">
-                                                    
-                                                    <TextBlock Text="{Binding ShortName}" Foreground="White" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-                                             
-                                                </materialDesign:ColorZone>
-                                                <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                    <TextBlock Text="{Binding Name}"/>
-                                                        <Button Style="{StaticResource MaterialDesignFlatButton}"
-                                                Command="{x:Static materialDesign:Flipper.FlipCommand}"
-                                                Margin="0 4 0 0" FontSize="20"   
-                                                >
-                                                            <materialDesign:PackIcon Kind="More" HorizontalAlignment="Right" />
-                                                            
-                                                        </Button>
-                                                    </StackPanel>
-                                            </Grid>
-                                        </materialDesign:Flipper.FrontContent>
-                                        <materialDesign:Flipper.BackContent>
-                                            <Grid Height="256" Width="200"  >
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition Height="Auto" />
-                                                    <RowDefinition Height="*" />
-                                                </Grid.RowDefinitions>
-                                                <materialDesign:ColorZone Mode="PrimaryDark" Padding="0">
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <Button Style="{StaticResource MaterialDesignToolForegroundButton}"
-                                                            Command="{x:Static materialDesign:Flipper.FlipCommand}"
-                                                            HorizontalAlignment="Left">     
-                                                            <materialDesign:PackIcon Kind="ArrowLeft" HorizontalAlignment="Right" />
-                                                        </Button>
-                                                      
-                                                    </StackPanel>
-                                                </materialDesign:ColorZone>
-
-                                                    <TextBlock Grid.Row="1" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center"
-
-                                                             TextWrapping="Wrap"
-                                                             Text="{Binding Description}"/>
-                                                
-                                                   
-                                            </Grid>
-                                        </materialDesign:Flipper.BackContent>
-                                    </materialDesign:Flipper>
-                                    </materialDesign:Card>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-
-                            <ListView.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel Orientation="Horizontal"/>
-
-                        </ItemsPanelTemplate>
-                    </ListView.ItemsPanel>
-                        </ListView>
-                       
-
-                        <Grid Visibility="{Binding CanExecuteSearch, Converter={StaticResource BoolToVis}}"> 
-                        <!--<StackPanel Visibility="{Binding Path=ViewList.View.Count, Converter={StaticResource CountToVis}}" 
-                                    VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <TextBlock Text="Sorry, no results!" Foreground="Gray" FontSize="17" FontWeight="SemiBold" FontStyle="Italic"></TextBlock>
-                        </StackPanel>-->
-                        </Grid>
-
-
-                        <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}" IsIndeterminate="True" 
+                    <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}" IsIndeterminate="True" 
                                        Visibility="{Binding IsBusy, Mode=TwoWay, 
                             Converter={StaticResource BoolToVis}}" 
                                      Width="50" Height="50">
-                            <ProgressBar.LayoutTransform>
-                                <ScaleTransform CenterX="0.5" CenterY="0.5" ScaleX="2" ScaleY="2" />
-                            </ProgressBar.LayoutTransform>
-                        </ProgressBar>
-                        
-                      
-
-                       
-                    </Grid>
+                        <ProgressBar.LayoutTransform>
+                            <ScaleTransform CenterX="0.5" CenterY="0.5" ScaleX="2" ScaleY="2" />
+                        </ProgressBar.LayoutTransform>
+                    </ProgressBar>
 
 
-                    <Grid Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="White" Width="550" Height="35">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-
-                        <Button Grid.Column="0"  Command="{Binding FirstCommand}"   Margin="3"  Content="First" Foreground="White"></Button>
-                        <Button Grid.Column="1"  Command="{Binding PreviousCommand}" Margin="3"  Content="Previous" Foreground="White"  RenderTransformOrigin="0.5,0.5">
-                            <!--<Button.RenderTransform>
-                    <ScaleTransform ScaleX="-1" />
-                </Button.RenderTransform>-->
-                        </Button>
-                        <Border  Grid.Column="2" BorderBrush="Black" BorderThickness="0" CornerRadius="0">
-                            <TextBlock    Background="Transparent" VerticalAlignment="Center" HorizontalAlignment="Center"  >
-                    <Run Text="{Binding CurrentPage, Mode=OneWay, StringFormat='{}{0:#,#.}'}"></Run>
-                    <Run Text="/"/>
-                    <Run Text="{Binding TotalPages, Mode=OneWay, StringFormat='{}{0:#,#.}'}"></Run>
-                            </TextBlock>
-                        </Border>
-                        <Button Grid.Column="3"  Command="{Binding NextCommand, UpdateSourceTrigger=PropertyChanged}" Margin="3"  Content="Next" Foreground="White"></Button>
-                        <Button Grid.Column="4"  Command="{Binding LastCommand}" Margin="3"   Content="Last" Foreground="White"></Button>
 
 
-                    </Grid>
-                </Grid>
+              
+
+
 
 
 

@@ -1,0 +1,63 @@
+﻿<UserControl x:Class="Filtered.Views.Details"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                
+             xmlns:local="clr-namespace:Filtered.Views"
+             mc:Ignorable="d" 
+             >
+    <Grid>
+
+
+        <materialDesign:Card Margin="100">
+            <StackPanel Margin="50 0 50 0"  VerticalAlignment="Center"  >
+
+                <Label Content="Project Name" Margin="5"></Label>
+                <TextBox  materialDesign:TextFieldAssist.TextFieldCornerRadius="5"  
+                         materialDesign:TextFieldAssist.HasOutlinedTextField="True"
+                          materialDesign:TextFieldAssist.HasClearButton="True"
+                         Margin="8" Text="{Binding SelectedProject.Name}" ></TextBox>
+             
+                <Label Content="Project Description" Margin="5"></Label>
+                <TextBox Text="{Binding SelectedProject.Description}" Margin="8"
+                          materialDesign:TextFieldAssist.TextFieldCornerRadius="5"
+                           materialDesign:TextFieldAssist.HasClearButton="True"
+                         materialDesign:TextFieldAssist.HasOutlinedTextField="True"
+                     TextWrapping="Wrap"  AcceptsReturn="True" MaxHeight="85" MinHeight="50" Padding="10"
+                     ScrollViewer.CanContentScroll="True"
+                     ></TextBox>
+                <Label Content="Developers" Margin="5"></Label>
+                <ComboBox ItemsSource="{Binding Developers}" SelectedValuePath="Item"  Margin="8"
+                          
+                          materialDesign:ShadowAssist.ShadowEdges="All"
+                      DisplayMemberPath="Item"
+                      SelectedValue="{Binding SelectedProject.Developer}">
+
+                </ComboBox>
+                <Label Content="Status" Margin="5"></Label>
+                <ComboBox ItemsSource="{Binding Status}" SelectedValuePath="Item"  Margin="8"
+                      DisplayMemberPath="Item"
+                      SelectedValue="{Binding SelectedProject.Status}">
+
+                </ComboBox>
+                <Label Content="Business" Margin="5"></Label>
+                <ComboBox ItemsSource="{Binding Business}" SelectedValuePath="Item"   Margin="8"
+                      DisplayMemberPath="Item"
+                      SelectedValue="{Binding SelectedProject.Business}">
+
+                </ComboBox>
+
+
+                <!--InvertBoolConverter will change the busy boolean so the button will be disable while it's running a long operation-->
+                <Button 
+                Content="Save" HorizontalAlignment="Right" Width="100" Margin="5"
+                    Command="{Binding SaveProject}"
+                    
+                    IsEnabled="{Binding IsBusy, Converter={StaticResource InvertBoolConverter}}"
+                    ></Button>
+            </StackPanel>
+        </materialDesign:Card>
+    </Grid>
+</UserControl>
