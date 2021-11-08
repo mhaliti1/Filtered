@@ -36,7 +36,7 @@
     </i:Interaction.Triggers>
 
 
-    <Border Name="MainWindowBorder" BorderBrush="#2980b9" BorderThickness="1">
+    <Border Name="MainWindowBorder" Margin="3" BorderBrush="#2980b9" BorderThickness="1">
 
         <Grid>
             <Grid.ColumnDefinitions>
