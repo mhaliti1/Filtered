@@ -10,12 +10,7 @@
         AllowsTransparency="True"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         MouseDown="Window_MouseDown"
-        ResizeMode="CanResizeWithGrip"
-        
-        
-         >
-    
-    
+        ResizeMode="CanResizeWithGrip">
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="40" />
     </WindowChrome.WindowChrome>
@@ -26,18 +21,12 @@
         <CommandBinding Command="{x:Static SystemCommands.MinimizeWindowCommand}" CanExecute="CommandBinding_CanExecute" Executed="CommandBinding_Executed_Minimize" />
         <CommandBinding Command="{x:Static SystemCommands.RestoreWindowCommand}" CanExecute="CommandBinding_CanExecute" Executed="CommandBinding_Executed_Restore" />
     </Window.CommandBindings>
-
-     
-
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding Command}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
-
-
     <Border Name="MainWindowBorder" Margin="3" BorderBrush="#2980b9" BorderThickness="1">
-
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200"/>
@@ -57,16 +46,8 @@
                     <Button Content="Users" Foreground="White" Margin="8" Click="Users"></Button>
                     <Button Content="Settings" Foreground="White" Margin="8" Click="Settings"></Button>
                 </StackPanel>
-            
-               
             </materialDesign:Card>
-
-
-
-
-
             <Border Grid.Column="1" BorderBrush="LightGray" BorderThickness="0 0 0 2"></Border>
-
             <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Left">
                 <TextBlock Text="Sample Application" VerticalAlignment="Center" FontSize="18" FontWeight="Medium" Margin="10 0"></TextBlock>
             </StackPanel>
@@ -88,23 +69,9 @@
                 <Button Foreground="White"  Command="{x:Static SystemCommands.CloseWindowCommand}" Visibility="Visible" WindowChrome.IsHitTestVisibleInChrome="True"  Margin="0 0 3 0" >
                     <materialDesign:PackIcon Kind="WindowClose" />
                 </Button>
-
-
-
-
-
             </StackPanel>
-
             <Grid Grid.Column="1" Grid.Row="1">
-
-              
-
-
                     <local:SwitchView></local:SwitchView>
-
-
-
-
                     <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}" IsIndeterminate="True" 
                                        Visibility="{Binding IsBusy, Mode=TwoWay, 
                             Converter={StaticResource BoolToVis}}" 
@@ -113,17 +80,6 @@
                             <ScaleTransform CenterX="0.5" CenterY="0.5" ScaleX="2" ScaleY="2" />
                         </ProgressBar.LayoutTransform>
                     </ProgressBar>
-
-
-
-
-              
-
-
-
-
-
-
             </Grid>
         </Grid>
     </Border>
